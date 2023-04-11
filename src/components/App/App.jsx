@@ -36,10 +36,6 @@ class App extends React.Component {
     }));
   };
 
-  resetForm = () => {
-    this.setState({ name: '', number: '' });
-  };
-
   onAddContact = e => {
     e.preventDefault();
     const { name, number, contacts } = this.state;

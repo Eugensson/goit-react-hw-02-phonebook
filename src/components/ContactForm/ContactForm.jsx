@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid';
 import { Form, Label, FormBtn } from './ContactForm.styled';
 
 class ContactForm extends React.Component {
@@ -8,7 +7,6 @@ class ContactForm extends React.Component {
     name: '',
     number: '',
   };
-  nameId = nanoid();
 
   resetForm = () => {
     this.setState({ name: '', number: '' });
@@ -19,7 +17,7 @@ class ContactForm extends React.Component {
     return (
       <Form
         onSubmit={onAddContact}
-        // onSubmit={e => {
+        // onSubmit={() => {
         //   onAddContact();
         //   this.resetForm();
         // }}
