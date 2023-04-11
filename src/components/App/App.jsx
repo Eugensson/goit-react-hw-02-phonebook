@@ -14,12 +14,12 @@ class App extends React.Component {
   };
 
   onInputChange = e => {
-    const { name, value } = e.target;
+    const { name, value } = e.currentTarget;
     this.setState({ [name]: value });
   };
 
   onFilterChange = e => {
-    const { value } = e.target;
+    const { value } = e.currentTarget;
     this.setState({ filter: value });
   };
 
