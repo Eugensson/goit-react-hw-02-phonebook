@@ -49,9 +49,3 @@ ContactList.propTypes = {
 };
 
 export default ContactList;
-//
-//
-//
-//
-//
-//

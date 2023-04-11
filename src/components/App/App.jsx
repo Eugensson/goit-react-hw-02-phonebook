@@ -30,12 +30,6 @@ class App extends React.Component {
     );
   };
 
-  onContactDelete = id => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id),
-    }));
-  };
-
   onAddContact = e => {
     e.preventDefault();
     const { name, number, contacts } = this.state;
@@ -57,6 +51,12 @@ class App extends React.Component {
     }));
   };
 
+  onContactDelete = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
+  };
+
   render() {
     return (
       <Container>
@@ -68,13 +68,12 @@ class App extends React.Component {
 
         <SubTitle>Contacts</SubTitle>
         <Filter
-          onFilterChange={this.onFilterChange}
           filter={this.state.filter}
-          filterContacts={this.filterContacts}
+          onFilterChange={this.onFilterChange}
         />
         <ContactList
-          filterContacts={this.filterContacts}
           contacts={this.state.contacts}
+          filterContacts={this.filterContacts}
           onContactDelete={this.onContactDelete}
         />
       </Container>
