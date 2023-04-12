@@ -3,29 +3,15 @@ import PropTypes from 'prop-types';
 import { Form, Label, FormBtn } from './ContactForm.styled';
 
 class ContactForm extends React.Component {
-  state = {
-    name: '',
-    number: '',
-  };
-
-  resetForm = () => {
-    this.setState({ name: '', number: '' });
-  };
-
   render() {
-    const { onInputChange, onAddContact } = this.props;
+    const { name, number, onInputChange, onAddContact } = this.props;
     return (
-      <Form
-        onSubmit={onAddContact}
-        // onSubmit={() => {
-        //   onAddContact();
-        //   this.resetForm();
-        // }}
-      >
+      <Form onSubmit={onAddContact}>
         <Label>
           Name
           <input
             onChange={onInputChange}
+            value={name}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -37,6 +23,7 @@ class ContactForm extends React.Component {
           Number
           <input
             onChange={onInputChange}
+            value={number}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

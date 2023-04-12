@@ -11,19 +11,24 @@ class App extends React.Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
+    name: '',
+    number: '',
+  };
+
+  resetForm = () => {
+    this.setState({ name: '', number: '' });
   };
 
   onInputChange = e => {
-    const { name, value } = e.currentTarget;
+    const { name, value } = e.target;
     this.setState({ [name]: value });
   };
 
   onFilterChange = e => {
-    const { value } = e.currentTarget;
-    this.setState({ filter: value });
+    this.setState({ filter: e.target.value });
   };
 
-  filterContacts = () => {
+  getFilteredContacts = () => {
     const { contacts, filter } = this.state;
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
@@ -33,22 +38,29 @@ class App extends React.Component {
   onAddContact = e => {
     e.preventDefault();
     const { name, number, contacts } = this.state;
-    const contact = {
-      id: nanoid(),
-      name,
-      number,
-    };
-    const isContactExist = contacts.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
+    if (name.trim() !== '' && number.trim() !== '') {
+      const newContact = {
+        id: nanoid(),
+        name: name,
+        number: number,
+      };
 
-    if (isContactExist) {
-      alert(`${name} is already in contacts`);
-      return;
+      const isContactExist = contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      );
+
+      if (isContactExist) {
+        alert(`${name} is already in contacts`);
+        return;
+      }
+
+      this.setState(prevState => ({
+        contacts: [newContact, ...prevState.contacts],
+        name: '',
+        number: '',
+      }));
     }
-    this.setState(prevState => ({
-      contacts: [contact, ...prevState.contacts],
-    }));
+    this.resetForm();
   };
 
   onContactDelete = id => {
@@ -62,6 +74,8 @@ class App extends React.Component {
       <Container>
         <Title>Phonebook</Title>
         <ContactForm
+          name={this.state.name}
+          number={this.state.number}
           onInputChange={this.onInputChange}
           onAddContact={this.onAddContact}
         />
@@ -73,7 +87,7 @@ class App extends React.Component {
         />
         <ContactList
           contacts={this.state.contacts}
-          filterContacts={this.filterContacts}
+          getFilteredContacts={this.getFilteredContacts}
           onContactDelete={this.onContactDelete}
         />
       </Container>

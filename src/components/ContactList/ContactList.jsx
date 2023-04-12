@@ -9,9 +9,9 @@ import {
 
 class ContactList extends React.Component {
   render() {
-    const { contacts, filterContacts, onContactDelete } = this.props;
+    const { contacts, getFilteredContacts, onContactDelete } = this.props;
 
-    const filteredContacts = filterContacts();
+    const filteredContacts = getFilteredContacts();
 
     return (
       <ContactListContainer>
@@ -44,7 +44,7 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ).isRequired,
-  filterContacts: PropTypes.func.isRequired,
+  getFilteredContacts: PropTypes.func.isRequired,
   onDeleteContact: PropTypes.func,
 };
 
