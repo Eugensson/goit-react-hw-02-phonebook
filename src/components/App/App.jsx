@@ -15,10 +15,6 @@ class App extends React.Component {
     number: '',
   };
 
-  resetForm = () => {
-    this.setState({ name: '', number: '' });
-  };
-
   onInputChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -60,7 +56,6 @@ class App extends React.Component {
         number: '',
       }));
     }
-    this.resetForm();
   };
 
   onContactDelete = id => {
