@@ -1,17 +1,35 @@
-import React from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Label, FormBtn } from './ContactForm.styled';
 
-class ContactForm extends React.Component {
+class ContactForm extends Component {
+  state = { name: '', number: '' };
+
+  resetForm = () => {
+    this.setState({ name: '', number: '' });
+  };
+
+  onInputChange = e => {
+    const { name, value } = e.currentTarget;
+    this.setState({ [name]: value });
+  };
+
+  onHandleSubmit = e => {
+    e.preventDefault();
+
+    this.props.onSubmit(this.state);
+
+    this.resetForm();
+  };
+
   render() {
-    const { name, number, onInputChange, onAddContact } = this.props;
     return (
-      <Form onSubmit={onAddContact}>
+      <Form onSubmit={this.onHandleSubmit}>
         <Label>
           Name
           <input
-            onChange={onInputChange}
-            value={name}
+            onChange={this.onInputChange}
+            value={this.state.name}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -22,8 +40,8 @@ class ContactForm extends React.Component {
         <Label>
           Number
           <input
-            onChange={onInputChange}
-            value={number}
+            onChange={this.onInputChange}
+            value={this.state.number}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -38,8 +56,8 @@ class ContactForm extends React.Component {
 }
 
 ContactForm.propTypes = {
-  onInputChange: PropTypes.func.isRequired,
-  onAddContact: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func,
+  onAddContact: PropTypes.func,
 };
 
 export default ContactForm;

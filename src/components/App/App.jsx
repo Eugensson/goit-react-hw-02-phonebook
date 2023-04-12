@@ -11,17 +11,6 @@ class App extends React.Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
-  };
-
-  resetForm = () => {
-    this.setState({ name: '', number: '' });
-  };
-
-  onInputChange = e => {
-    const { name, value } = e.currentTarget;
-    this.setState({ [name]: value });
   };
 
   changeFilter = e => {
@@ -35,9 +24,9 @@ class App extends React.Component {
     );
   };
 
-  onAddContact = e => {
-    e.preventDefault();
-    const { name, number, contacts } = this.state;
+  onAddContact = data => {
+    const { contacts } = this.state;
+    const { name, number } = data;
     if (name.trim() !== '' && number.trim() !== '') {
       const newContact = {
         id: nanoid(),
@@ -58,7 +47,6 @@ class App extends React.Component {
         contacts: [newContact, ...prevState.contacts],
       }));
     }
-    this.resetForm();
   };
 
   onContactDelete = id => {
@@ -71,12 +59,7 @@ class App extends React.Component {
     return (
       <Container>
         <Title>Phonebook</Title>
-        <ContactForm
-          name={this.state.name}
-          number={this.state.number}
-          onInputChange={this.onInputChange}
-          onAddContact={this.onAddContact}
-        />
+        <ContactForm onSubmit={this.onAddContact} />
 
         <SubTitle>Contacts</SubTitle>
         <Filter value={this.state.filter} onChange={this.changeFilter} />
