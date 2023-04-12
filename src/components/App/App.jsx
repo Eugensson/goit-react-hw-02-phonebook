@@ -56,8 +56,6 @@ class App extends React.Component {
 
       this.setState(prevState => ({
         contacts: [newContact, ...prevState.contacts],
-        name: '',
-        number: '',
       }));
     }
     this.resetForm();
