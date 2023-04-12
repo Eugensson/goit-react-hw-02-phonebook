@@ -15,13 +15,17 @@ class App extends React.Component {
     number: '',
   };
 
+  resetForm = () => {
+    this.setState({ name: '', number: '' });
+  };
+
   onInputChange = e => {
-    const { name, value } = e.target;
+    const { name, value } = e.currentTarget;
     this.setState({ [name]: value });
   };
 
-  onFilterChange = e => {
-    this.setState({ filter: e.target.value });
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
   };
 
   getFilteredContacts = () => {
@@ -56,6 +60,7 @@ class App extends React.Component {
         number: '',
       }));
     }
+    this.resetForm();
   };
 
   onContactDelete = id => {
@@ -76,10 +81,7 @@ class App extends React.Component {
         />
 
         <SubTitle>Contacts</SubTitle>
-        <Filter
-          filter={this.state.filter}
-          onFilterChange={this.onFilterChange}
-        />
+        <Filter value={this.state.filter} onChange={this.changeFilter} />
         <ContactList
           contacts={this.state.contacts}
           getFilteredContacts={this.getFilteredContacts}

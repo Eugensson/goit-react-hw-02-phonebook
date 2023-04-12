@@ -4,15 +4,15 @@ import { Label } from 'components/Filter/Filter.styled';
 
 class Filter extends React.Component {
   render() {
-    const { filter, onFilterChange } = this.props;
+    const { value, onChange } = this.props;
     return (
       <div>
         <Label>
           Find contacts by name
           <input
             type="text"
-            value={filter}
-            onChange={onFilterChange}
+            value={value}
+            onChange={onChange}
             placeholder="Enter name"
           />
         </Label>
